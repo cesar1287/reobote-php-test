@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<!-- TITULO VARIAVEL -->
+		<title> <?php echo $page_title; ?> </title>
+		<!-- TITULO VARIAVEL FIM -->
+		
+		<!-- Estilos -->
+		<link href="<?php echo $GLOBALS['project_index'];?>/view/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+		
+	</head>
+	
+	<body>
+		<div class="container">
+		<!-- Topo -->
+			<div class="row top">
+				<nav class="navbar navbar-inverse">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a href="index.php" class="navbar-brand">Reobote</a>
+						</div>
+						
+						<p class="navbar-text navbar-right" style="text-align: right;">
+							<?php if(isset($user_on)){ 
+							
+							include_once ($GLOBALS['project_path'].'/view/user_on.html');
+							
+							 }else{ ?>
+							<a href="#login_add_user" data-toggle="modal" class="btn btn-default btn-navbar">
+								<i class="glyphicon glyphicon-user"> </i>
+								Identifique-se
+							</a>
+							<?php } //fim do else ?>
+							
+						</p>
+					</div>
+				</nav>
+			</div>
+			
+			
+			
+			<!-- Banner -->
+			<div class="row banner">
+				<div class="jumbotron">
+					<h1>Vaga de estágio programador PHP</h1>
+					<p>Desenvolver uma aplicação com autenticação de usuários.</p>
+				</div>
+			</div>
+			
+			<!-- Conteudo -->
+			<div class="row content">
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+				  	<b>Bem vindo!!!</b>
+				  </div>
+				  <div class="panel-body">
+				  	<?php 
+				  		page_content();
+				  	?>
+				  </div>
+				</div>
+			</div>
+			
+			<!-- Rodapé -->
+			<div class="row footer">
+				<div class="col-md-12"></div>
+			</div>
+			
+			<hr>
+			
+			<div id="footer">
+				<div class="container">
+				<p class="text-muted"> <i class="glyphicon glyphicon-off"> </i>Reobote.</p>
+				<p class="text-muted"> <i class="glyphicon glyphicon-registration-mark"> </i> <a target="_blank" href="https://github.com/cesar1287">Meu Github</a></p><br>
+			</div>
+	
+		</div>
+		
+		<!-- Javascript -->
+		<script src="<?php echo $GLOBALS['project_index'];?>/view/static/js/jquery.js"></script>
+		<script src="<?php echo $GLOBALS['project_index'];?>/view/static/bootstrap/js/bootstrap.js"></script>
+	</body>
+</html>

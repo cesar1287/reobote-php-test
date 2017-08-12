@@ -1,0 +1,42 @@
+
+<?php
+	//se o usuario tá logado - alterar perfil
+	if(isset($user_on)){
+		$action = "controller/update_common.php";
+		$id = $user_on->get_id_person(); //pega id do cabra q tá logado
+		$form_extra = '<input type="hidden" name="id" value="'.$id.'">';
+		$form_extra .= '<input type="hidden" name="table" value="1">';	
+
+		$user['person_name'] = $user_on->get_person_name();
+		$user['person_email'] = $user_on->get_person_email();
+
+	}else{
+		$action = "controller/insert_user.php";
+	}
+?>
+
+<form action="<?php echo $action; ?>" method="POST">
+	
+	
+	<label>Nome: </label>
+	<input type="text" value="<?php echo @$user['person_name']; ?>" name="person_name" class="form-control" placeholder="Digite o nome" required>
+	<br>	
+
+	<label>Email: </label>
+	<input type="email" value="<?php echo @$user['person_email']; ?>" name="person_email" class="form-control" placeholder="Digite o email" required>
+	<br>
+	
+	<label>Senha: </label>
+	<input type="password" name="user_password" class="form-control" placeholder="Digite a senha" required>
+	<br>
+
+	<label>Data de Nascimento: </label>
+	<input type="date" value="<?php echo @$user['person_birth']; ?>" name="person_birth" class="form-control" 
+		placeholder="Digite a data de nascimento">
+	<br>
+	
+	<?php echo @$form_extra; ?>
+	
+	<input type="submit" value="Confirmar Dados!" class="btn btn-primary btn-lg btn-block">
+	 
+</form>

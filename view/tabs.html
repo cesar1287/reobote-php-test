@@ -1,0 +1,15 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#login" data-toggle="tab"><i class="glyphicon glyphicon-lock"></i> Login</a></li>
+  <li><a href="#add_user" data-toggle="tab"><i class="glyphicon glyphicon-plus"></i> Criar Conta</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="login"> 
+  	<?php include_once ($GLOBALS['project_path']."/view/forms/login.html"); ?> 
+  </div>
+  <div class="tab-pane" id="add_user"><br>
+  	<?php include_once ($GLOBALS['project_path']."/view/forms/add_user.html"); ?>
+  </div>
+</div>
