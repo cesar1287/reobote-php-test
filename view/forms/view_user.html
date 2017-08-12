@@ -1,0 +1,43 @@
+
+<?php
+//incluindo o arquivo com as variaveis de caminho
+include_once ($GLOBALS['project_path'].'/model/urls.php');
+
+//arquivo com os dados do banco de dados
+include_once ($GLOBALS['project_path'].'/model/db_data.php');
+
+//classe que gerencia o banco...
+include_once ($GLOBALS['project_path'].'/model/class/Manager.class.php');
+
+//criar o objeto do tipo Gerenciador
+$manager = new Manager($GLOBALS['db_host'], $GLOBALS['db_user'], $GLOBALS['db_password'], $GLOBALS['db_name']);
+
+$filters['id_person'] = $id_person;
+
+$people = $manager->select_common('tb_person', '', $filters, '');
+
+foreach ($people as $person) :
+?>
+
+<form action="user.php" method="POST">
+
+
+<label>Nome: </label>
+<input type="text" value="<?php echo @$person['person_name']; ?>" name="person_name" class="form-control" placeholder="Digite o nome" readonly>
+<br>	
+
+<label>Email: </label>
+<input type="email" value="<?php echo @$person['person_email']; ?>" name="person_email" class="form-control" placeholder="Digite o email" readonly>
+<br>
+
+<label>Data de Nascimento: </label>
+<input type="date" value="<?php echo @$person['person_birth']; ?>" name="person_birth" class="form-control" 
+    placeholder="Digite a data de nascimento" readonly>
+<br>
+
+<?php endforeach; 
+    echo @$form_extra; ?>
+
+<input type="submit" value="Voltar" class="btn btn-primary btn-lg btn-block">
+ 
+</form>

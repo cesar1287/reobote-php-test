@@ -31,7 +31,7 @@
 				$date = DateTime::createFromFormat($format, $person['person_birth']);
 				echo $date->format('d/m/Y'); ?></td>
 			<td class="actions text-left">
-				<a href="view.php?id=<?php echo $person['id']; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>
+				<a href="view.php?id=<?php echo $person['id_person']; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>

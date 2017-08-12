@@ -29,20 +29,14 @@
 		$a->add_content(" Excluir conta<br><br>");
 		$a->show_tag();
 		
-		
 		//montando tag de titulo do formulario...
 		$leg = new Tag('legend');
 		$leg->add_content('Alteração de Dados');
 		$leg->show_tag();
-		
-		
 		
 		//incluindo formulario de 
 		include_once 'view/forms/add_user.html';
 	}
 	
 	include_once 'view/template.html';
-	
-	
-	
-	
+?>
