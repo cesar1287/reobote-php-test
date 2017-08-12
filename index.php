@@ -12,7 +12,7 @@ session_start();
 
 //se existir ele redireciona pra pagina "user.php"
 if(isset($_SESSION['user_on'])){
-	header("location: user.php");
+	header("location: user.php?pagina=0");
 }
 
 

@@ -1,3 +1,40 @@
+<?php 
+//incluindo o arquivo com as variaveis de caminho
+include_once dirname(__DIR__).'/model/urls.php';
+
+//arquivo com os dados do banco de dados
+include_once ($GLOBALS['project_path'].'/model/db_data.php');
+
+//classe que gerencia o banco...
+include_once ($GLOBALS['project_path'].'/model/class/Manager.class.php');
+
+//criar o objeto do tipo Gerenciador
+$manager = new Manager($GLOBALS['db_host'], $GLOBALS['db_user'], $GLOBALS['db_password'], $GLOBALS['db_name']);
+
+// definir o numero de itens por pagina
+$itens_por_pagina = 1;
+
+// pegar a pagina atual
+$pagina = intval($_GET['pagina']);
+
+//definido itens por página
+if($pagina==0){
+	$people = $manager->select_common('tb_person', '','','ORDER BY id_person DESC LIMIT '.$pagina.', '.$itens_por_pagina);
+}else{
+	//mecanismo para não mostrar a mesma tupla em páginas diferentes.
+	$pag_aux = $pagina;
+	$pag_aux *= $itens_por_pagina;
+	$people = $manager->select_common('tb_person', '','','ORDER BY id_person DESC LIMIT '.$pag_aux.', '.$itens_por_pagina);
+}
+
+// pega a quantidade total de objetos no banco de dados
+$num_total = sizeof($manager->select_common('tb_person', '','',''));
+
+// definir numero de páginas
+$num_paginas = ceil($num_total/$itens_por_pagina);
+
+if ($people) : ?>
+
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -8,21 +45,6 @@
 		</tr>
 	</thead>
 	<tbody>
-    <?php 
-    //incluindo o arquivo com as variaveis de caminho
-	include_once dirname(__DIR__).'/model/urls.php';
-	
-	//arquivo com os dados do banco de dados
-	include_once ($GLOBALS['project_path'].'/model/db_data.php');
-	
-	//classe que gerencia o banco...
-	include_once ($GLOBALS['project_path'].'/model/class/Manager.class.php');
-	
-	//criar o objeto do tipo Gerenciador
-    $manager = new Manager($GLOBALS['db_host'], $GLOBALS['db_user'], $GLOBALS['db_password'], $GLOBALS['db_name']);
-    
-    $people = $manager->select_common('tb_person', '','','ORDER BY id_person DESC');
-    if ($people) : ?>
 	<?php foreach ($people as $person) : ?>
 		<tr>
 			<td><?php echo $person['person_name']; ?></td>
@@ -42,3 +64,27 @@
 	<?php endif; ?>
 	</tbody>
 </table>
+<nav>
+	<div class="text-center">
+		<ul class="pagination">
+		<li>
+			<a href="user.php?pagina=0" aria-label="Previous">
+			<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<?php 
+		for($i=0;$i<$num_paginas;$i++){
+		$estilo = "";
+		if($pagina == $i)
+			$estilo = "class=\"active\"";
+		?>
+		<li <?php echo $estilo; ?> ><a href="user.php?pagina=<?php echo $i; ?>"><?php echo $i+1; ?></a></li>
+		<?php } ?>
+		<li>
+			<a href="user.php?pagina=<?php echo $num_paginas-1; ?>" aria-label="Next">
+			<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+		</ul>
+	</div>
+  </nav>
