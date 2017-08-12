@@ -1,0 +1,44 @@
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th width="30%">Nome</th>
+			<th width="30%">Email</th>
+			<th>Data de Nascimento</th>
+			<th>Opções</th>
+		</tr>
+	</thead>
+	<tbody>
+    <?php 
+    //incluindo o arquivo com as variaveis de caminho
+	include_once dirname(__DIR__).'/model/urls.php';
+	
+	//arquivo com os dados do banco de dados
+	include_once ($GLOBALS['project_path'].'/model/db_data.php');
+	
+	//classe que gerencia o banco...
+	include_once ($GLOBALS['project_path'].'/model/class/Manager.class.php');
+	
+	//criar o objeto do tipo Gerenciador
+    $manager = new Manager($GLOBALS['db_host'], $GLOBALS['db_user'], $GLOBALS['db_password'], $GLOBALS['db_name']);
+    
+    $people = $manager->select_common('tb_person', '','','ORDER BY id_person DESC');
+    if ($people) : ?>
+	<?php foreach ($people as $person) : ?>
+		<tr>
+			<td><?php echo $person['person_name']; ?></td>
+			<td><?php echo $person['person_email']; ?></td>
+			<td><?php $format = 'Y-m-d';
+				$date = DateTime::createFromFormat($format, $person['person_birth']);
+				echo $date->format('d/m/Y'); ?></td>
+			<td class="actions text-left">
+				<a href="view.php?id=<?php echo $person['id']; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	<?php else : ?>
+		<tr>
+			<td colspan="6">Nenhum registro encontrado.</td>
+		</tr>
+	<?php endif; ?>
+	</tbody>
+</table>
