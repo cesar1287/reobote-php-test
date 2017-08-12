@@ -12,7 +12,7 @@ include_once ($GLOBALS['project_path'].'/model/class/Manager.class.php');
 $manager = new Manager($GLOBALS['db_host'], $GLOBALS['db_user'], $GLOBALS['db_password'], $GLOBALS['db_name']);
 
 // definir o numero de itens por pagina
-$itens_por_pagina = 1;
+$itens_por_pagina = 5;
 
 // pegar a pagina atual
 $pagina = intval($_GET['pagina']);
